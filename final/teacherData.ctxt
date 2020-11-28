@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=teacherData
+comment0.text=\r\n\ This\ is\ Assignment4\ for\ CS200\r\n\r\n\ @author\ (Junwen\ Huang)\r\n\ @version\ (Nov.18/2020)\r\n
+comment1.params=name\ age\ salary\ subject
+comment1.target=teacherData(java.lang.String,\ java.lang.Integer,\ java.lang.Integer,\ java.lang.String)
+comment2.params=
+comment2.target=java.lang.String\ toString()
+numComments=3

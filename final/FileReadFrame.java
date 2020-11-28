@@ -124,7 +124,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
           String readLine;                       // Input from file
           File readFile = null;                  // Input file
           int fileChooserVal;                    // File chooser
-          ArrayList<studentData> data=new ArrayList<studentData>();
+          ArrayList<studentData> sData=new ArrayList<studentData>();
           // Open file chooser dialog and get the file to open
           fileChooserVal = fileChooser.showOpenDialog(this);
     
@@ -149,7 +149,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
                       (CSVtoArrayList(readLine).get(1)),Double.parseDouble
                       (CSVtoArrayList(readLine).get(2)),Integer.parseInt
                       (CSVtoArrayList(readLine).get(3)));
-                      data.add(studentObj);
+                      sData.add(studentObj);
                       outputArea.append(readLine + "\n");
                    }
 
@@ -170,12 +170,12 @@ public class FileReadFrame extends JFrame implements ActionListener {
        //teacher button
        if(event.getSource()==teacher){
           student.setVisible(false);
-          FileInputStream fileByteStream = null; // File input stream
+          BufferedReader readBuffer = null; // File input stream
           Scanner inFS = null;                   // Scanner object
           String readLine;                       // Input from file
           File readFile = null;                  // Input file
           int fileChooserVal;                    // File chooser
-    
+          ArrayList<teacherData> tData=new ArrayList<teacherData>();
           // Open file chooser dialog and get the file to open
           fileChooserVal = fileChooser.showOpenDialog(this);
     
@@ -189,20 +189,22 @@ public class FileReadFrame extends JFrame implements ActionListener {
              // Ensure file is valid
              if (readFile.canRead()) {
                 try {
-                   fileByteStream = new FileInputStream(readFile);
-                   inFS = new Scanner(fileByteStream);
-    
+                   readBuffer = new BufferedReader(new FileReader(readFile));
+                   //inFS = new Scanner(fileByteStream);
+                   readBuffer.readLine();
                    // Clear output area
                    outputArea.setText(""); 
-    
-                   
-                       while (inFS.hasNext()) {
-                          readLine = inFS.nextLine();
-                          //studentData studentObj=new studentData(
-                          outputArea.append(readLine + "\n");
-                       }
-                   
-    
+                   while ((readLine=readBuffer.readLine())!=null) {
+                      teacherData teacherObj=new teacherData(
+                      (CSVtoArrayList(readLine).get(0)),Integer.parseInt
+                      (CSVtoArrayList(readLine).get(1)),Integer.parseInt
+                      (CSVtoArrayList(readLine).get(2)),
+                      (CSVtoArrayList(readLine).get(3)));
+                      tData.add(teacherObj);
+                      outputArea.append(readLine + "\n");
+                   }
+
+
                 } catch (IOException e) {
                    outputArea.append("\n\nError occurred while creating file stream! " + e.getMessage());
                 }
@@ -212,7 +214,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Can't read file!");
              }
           }
-       }       
+       }
    }
    public static ArrayList<String> CSVtoArrayList(String CSVFileName) {
         
