@@ -27,9 +27,14 @@ public class FileReadFrame extends JFrame implements ActionListener {
    private JLabel outputLabel;           // Label for file contents
    private JTextField selectedFileField; // Holds name of file
    private JFileChooser fileChooser;     // Enables user to select file
-   private JButton openFileButton;       // Trigger file open
+   private JButton search;       
    private JButton student;
    private JButton teacher;
+   private JTextField target;
+   private boolean stuMode=false;
+   private boolean teaMode=false;
+   ArrayList<studentData> sData=new ArrayList<studentData>();
+   ArrayList<teacherData> tData=new ArrayList<teacherData>();
    /* Constructor creates GUI components and adds GUI components
       using a GridBagLayout. */
    FileReadFrame() {
@@ -48,38 +53,50 @@ public class FileReadFrame extends JFrame implements ActionListener {
       outputArea = new JTextArea(10, 25);
       scrollPane = new JScrollPane(outputArea);
       outputArea.setEditable(false);
-      
-
-      student= new JButton("student");
-      
+      student= new JButton("student");  
       student.addActionListener(this);
       teacher= new JButton("teacher");
       teacher.addActionListener(this);
-
-      
-      
-      // Create file chooser. It's not added to this frame.
+      search=new JButton("search");
+      search.addActionListener(this);  
+      target=new JTextField(15);
+      target.setEditable(true);
+      target.setText("0");
+      //target.setColumns(15);
       fileChooser = new JFileChooser();
 
       // Add components using GridBagLayout
       setLayout(new GridBagLayout());
 
 
+      layoutConst = new GridBagConstraints();
+      layoutConst.insets = new Insets(10, 10, 5, 5);
+      layoutConst.fill = GridBagConstraints.HORIZONTAL;
+      layoutConst.gridx = 3;
+      layoutConst.gridy = 1;
+      add(search, layoutConst);
       
+      layoutConst = new GridBagConstraints();
+      layoutConst.insets = new Insets(10, 10, 5, 5);
+      layoutConst.fill = GridBagConstraints.HORIZONTAL;
+      layoutConst.gridx = 4;
+      layoutConst.gridy = 1;
+      add(target, layoutConst);
+      //student button
       layoutConst = new GridBagConstraints();
       layoutConst.insets = new Insets(10, 10, 5, 5);
       layoutConst.fill = GridBagConstraints.HORIZONTAL;
       layoutConst.gridx = 1;
       layoutConst.gridy = 1;
       add(student, layoutConst);
-      
+      //teacher button
       layoutConst = new GridBagConstraints();
       layoutConst.insets = new Insets(10, 10, 5, 5);
       layoutConst.fill = GridBagConstraints.HORIZONTAL;
       layoutConst.gridx = 2;
       layoutConst.gridy = 1;
       add(teacher, layoutConst);
-
+      //file field
       layoutConst = new GridBagConstraints();
       layoutConst.insets = new Insets(10, 5, 5, 1);
       layoutConst.anchor = GridBagConstraints.LINE_END;
@@ -119,12 +136,13 @@ public class FileReadFrame extends JFrame implements ActionListener {
        //student button
        if(event.getSource()==student){
           teacher.setVisible(false);
+          stuMode=true;
           BufferedReader readBuffer = null; // File input stream
           Scanner inFS = null;                   // Scanner object
           String readLine;                       // Input from file
           File readFile = null;                  // Input file
           int fileChooserVal;                    // File chooser
-          ArrayList<studentData> sData=new ArrayList<studentData>();
+          
           // Open file chooser dialog and get the file to open
           fileChooserVal = fileChooser.showOpenDialog(this);
     
@@ -170,12 +188,13 @@ public class FileReadFrame extends JFrame implements ActionListener {
        //teacher button
        if(event.getSource()==teacher){
           student.setVisible(false);
+          
           BufferedReader readBuffer = null; // File input stream
           Scanner inFS = null;                   // Scanner object
           String readLine;                       // Input from file
           File readFile = null;                  // Input file
           int fileChooserVal;                    // File chooser
-          ArrayList<teacherData> tData=new ArrayList<teacherData>();
+          
           // Open file chooser dialog and get the file to open
           fileChooserVal = fileChooser.showOpenDialog(this);
     
@@ -215,6 +234,14 @@ public class FileReadFrame extends JFrame implements ActionListener {
              }
           }
        }
+       //search button
+       if(event.getSource()==search){
+           if(stuMode==true){
+               outputArea.append(studentSearching(sData,target.getText()));
+           }
+           
+       
+       }
    }
    public static ArrayList<String> CSVtoArrayList(String CSVFileName) {
         
@@ -237,5 +264,15 @@ public class FileReadFrame extends JFrame implements ActionListener {
             }
          }
      return arrlist;
-    }
+   }
+   public static <TheType extends Comparable<TheType>> TheType studentSearching(ArrayList<studentData> data
+   , TheType target){
+           for(studentData i: data){
+               if(target.compareTo((TheType)i.name)==0){
+                   return (TheType)i.gpa.toString();
+               }
+           }
+           return (TheType)"Not Found";
+      
+   }
 }
