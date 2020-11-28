@@ -17,6 +17,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
+import java.io.*;
 
 public class FileReadFrame extends JFrame implements ActionListener {
    private JScrollPane scrollPane;       // Container adds scroll bar
@@ -47,13 +49,11 @@ public class FileReadFrame extends JFrame implements ActionListener {
       scrollPane = new JScrollPane(outputArea);
       outputArea.setEditable(false);
       
-      openFileButton = new JButton("Open file");
-      openFileButton.addActionListener(this);
+
       student= new JButton("student");
       
       student.addActionListener(this);
       teacher= new JButton("teacher");
-
       teacher.addActionListener(this);
 
       
@@ -64,12 +64,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
       // Add components using GridBagLayout
       setLayout(new GridBagLayout());
 
-      layoutConst = new GridBagConstraints();
-      layoutConst.insets = new Insets(10, 10, 5, 5);
-      layoutConst.fill = GridBagConstraints.HORIZONTAL;
-      layoutConst.gridx = 0;
-      layoutConst.gridy = 0;
-      add(openFileButton, layoutConst);
+
       
       layoutConst = new GridBagConstraints();
       layoutConst.insets = new Insets(10, 10, 5, 5);
@@ -124,6 +119,57 @@ public class FileReadFrame extends JFrame implements ActionListener {
        //student button
        if(event.getSource()==student){
           teacher.setVisible(false);
+          BufferedReader readBuffer = null; // File input stream
+          Scanner inFS = null;                   // Scanner object
+          String readLine;                       // Input from file
+          File readFile = null;                  // Input file
+          int fileChooserVal;                    // File chooser
+          ArrayList<studentData> data=new ArrayList<studentData>();
+          // Open file chooser dialog and get the file to open
+          fileChooserVal = fileChooser.showOpenDialog(this);
+    
+          // Check if file was selected
+          if (fileChooserVal == JFileChooser.APPROVE_OPTION) {
+             readFile = fileChooser.getSelectedFile();
+             
+             // Update selected file field
+             selectedFileField.setText(readFile.getName());
+             
+             // Ensure file is valid
+             if (readFile.canRead()) {
+                try {
+                   readBuffer = new BufferedReader(new FileReader(readFile));
+                   //inFS = new Scanner(fileByteStream);
+                   readBuffer.readLine();
+                   // Clear output area
+                   outputArea.setText(""); 
+                   while ((readLine=readBuffer.readLine())!=null) {
+                      studentData studentObj=new studentData(
+                      (CSVtoArrayList(readLine).get(0)),Integer.parseInt
+                      (CSVtoArrayList(readLine).get(1)),Double.parseDouble
+                      (CSVtoArrayList(readLine).get(2)),Integer.parseInt
+                      (CSVtoArrayList(readLine).get(3)));
+                      data.add(studentObj);
+                      outputArea.append(readLine + "\n");
+                   }
+
+
+                } catch (IOException e) {
+                   outputArea.append("\n\nError occurred while creating file stream! " + e.getMessage());
+                }
+             }
+             else { // Can't read file
+                // Show failure dialog
+                JOptionPane.showMessageDialog(this, "Can't read file!");
+             }
+          }
+       }
+       
+           
+       
+       //teacher button
+       if(event.getSource()==teacher){
+          student.setVisible(false);
           FileInputStream fileByteStream = null; // File input stream
           Scanner inFS = null;                   // Scanner object
           String readLine;                       // Input from file
@@ -166,17 +212,28 @@ public class FileReadFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Can't read file!");
              }
           }
-       }
-       
-           
-       
-       //teacher button
-       if(event.getSource()==teacher){
-           student.setVisible(false);
-       }
-       //readin file
-       if(event.getSource()==openFileButton){
-        }
-          
+       }       
    }
+   public static ArrayList<String> CSVtoArrayList(String CSVFileName) {
+        
+        //TO DO: ensure this arraylist can handle integers, not only strings
+        ArrayList<String> arrlist = new ArrayList<String>();
+        
+        
+        if (CSVFileName != null) {
+            String[] splitData = CSVFileName.split("\\,", -1); //the -1 helps handle the null values
+            
+            for (int i = 0; i < splitData.length; i++) {
+                //if it is null, replace it with a 0
+                if (splitData[i].length() == 0) {
+                    splitData[i] = "0";
+                }
+                //as long as it is not null and the length is not 0, trim the value and add it to the arraylist
+                if (!(splitData[i] == null) || !(splitData[i].length() == 0)) {
+                    arrlist.add(splitData[i].trim());
+                }
+            }
+         }
+     return arrlist;
+    }
 }

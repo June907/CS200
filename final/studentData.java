@@ -1,4 +1,4 @@
-;import java.util.*; 
+import java.util.*; 
 import java.lang.*; 
 import java.io.*; 
 /**
@@ -13,12 +13,16 @@ public class studentData{
     Double gpa;
     Integer grade;
     
-    public void stduentData(String name, Integer age, Double gpa, 
+    public studentData(String name, Integer age, Double gpa, 
     Integer grade){
         this.name=name;
         this.age=age;
         this.gpa=gpa;
         this.grade=grade;
+    }
+    @Override
+    public String toString(){
+        return name+" "+age+" "+gpa+" "+grade;
     }
      
     

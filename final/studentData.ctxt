@@ -2,5 +2,7 @@
 comment0.target=studentData
 comment0.text=\r\n\ This\ is\ Assignment4\ for\ CS200\r\n\r\n\ @author\ (Junwen\ Huang)\r\n\ @version\ (Nov.18/2020)\r\n
 comment1.params=name\ age\ gpa\ grade
-comment1.target=void\ stduentData(java.lang.String,\ java.lang.Integer,\ java.lang.Double,\ java.lang.Integer)
-numComments=2
+comment1.target=studentData(java.lang.String,\ java.lang.Integer,\ java.lang.Double,\ java.lang.Integer)
+comment2.params=
+comment2.target=java.lang.String\ toString()
+numComments=3
