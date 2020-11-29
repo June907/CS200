@@ -660,13 +660,13 @@ public class FileReadFrame extends JFrame implements ActionListener {
            tAvgAgeField.setText(Integer.toString(teacherAgeAverage(tData)));
         }
         if(event.getSource()==tAvgSalary){
-           tAvgAgeField.setText(Double.toString(teacherSalAverage(tData)));
+           tAvgSalaryField.setText(Double.toString(teacherSalAverage(tData)));
         }
         if(event.getSource()==SAvgAge){
-           tAvgAgeField.setText(Integer.toString(studentAgeAverage(sData)));
+           SAvgAgeField.setText(Integer.toString(studentAgeAverage(sData)));
         }
         if(event.getSource()==SAvgGrade){
-           tAvgAgeField.setText(Integer.toString(studentGradeAverage(sData)));
+           SAvgGradeField.setText(Integer.toString(studentGradeAverage(sData)));
         }
    }
    public static ArrayList<String> CSVtoArrayList(String CSVFileName) {
