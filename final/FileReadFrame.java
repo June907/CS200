@@ -41,7 +41,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
       GridBagConstraints layoutConst = null; // GUI component layout
 
       // Set frame's title
-      setTitle("File reader");
+      setTitle("Final Project");
 
       outputLabel = new JLabel("File contents:");
       selectedFileLabel = new JLabel("Selected file:");
@@ -61,7 +61,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
       search.addActionListener(this);  
       target=new JTextField(15);
       target.setEditable(true);
-      target.setText("0");
+      target.setText(" ");
       //target.setColumns(15);
       fileChooser = new JFileChooser();
 
@@ -236,8 +236,16 @@ public class FileReadFrame extends JFrame implements ActionListener {
        }
        //search button
        if(event.getSource()==search){
+           outputArea.setText(" ");
            if(stuMode==true){
-               outputArea.append(studentSearching(sData,target.getText()));
+               
+               studentSearching(sData,target.getText());
+               
+           }
+           if(teaMode==true){
+               
+               teacherSearching(tData,target.getText());
+               
            }
            
        
@@ -265,14 +273,75 @@ public class FileReadFrame extends JFrame implements ActionListener {
          }
      return arrlist;
    }
-   public static <TheType extends Comparable<TheType>> TheType studentSearching(ArrayList<studentData> data
+   public <TheType extends Comparable<TheType>> void studentSearching(ArrayList<studentData> data
    , TheType target){
-           for(studentData i: data){
-               if(target.compareTo((TheType)i.name)==0){
-                   return (TheType)i.gpa.toString();
-               }
+       boolean found=false;
+       String info;
+       for(studentData i: data){
+           if(target.compareTo((TheType)i.name)==0){
+               info=("Name: "+i.name+" "+"Age: "+i.age.toString()+" "
+               +"GPA: "+i.gpa.toString()+" "+"Grade: "+i.grade.toString());
+               found=true;
+               outputArea.append(info+"\n");
            }
-           return (TheType)"Not Found";
-      
+
+           else if(target.compareTo((TheType)i.age.toString())==0){
+               info=("Name: "+i.name+" "+"Age: "+i.age.toString()+" "
+               +"GPA: "+i.gpa.toString()+" "+"Grade: "+i.grade.toString());
+               found=true;
+               outputArea.append(info+"\n");
+           }
+           else if(target.compareTo((TheType)i.gpa.toString())==0){
+               info=("Name: "+i.name+" "+"Age: "+i.age.toString()+" "
+               +"GPA: "+i.gpa.toString()+" "+"Grade: "+i.grade.toString());
+               found=true;
+               outputArea.append(info+"\n");
+           }
+           else if(target.compareTo((TheType)i.grade.toString())==0){
+               info=("Name: "+i.name+" "+"Age: "+i.age.toString()+" "
+               +"GPA: "+i.gpa.toString()+" "+"Grade: "+i.grade.toString());
+               found=true;
+               outputArea.append(info+"\n");
+           }
+       }
+       if(found==false){
+           outputArea.append("Not Found");
+       }
+   }
+   public <TheType extends Comparable<TheType>> void teacherSearching(ArrayList<teacherData> data
+   , TheType target){
+       boolean found=false;
+       String info;
+       for(teacherData i: data){
+           if(target.compareTo((TheType)i.name)==0){
+               info=("Name: "+i.name+" "+"Age: "+i.age.toString()+" "
+               +"Salary: "+i.salary.toString()+" "+"Subject: "+i.subject);
+               found=true;
+               outputArea.append(info+"\n");
+           }
+
+           if(target.compareTo((TheType)i.age.toString())==0){
+                info=("Name: "+i.name+" "+"Age: "+i.age.toString()+" "
+               +"Salary: "+i.salary.toString()+" "+"Subject: "+i.subject);
+               found=true;
+               outputArea.append(info+"\n");
+           }
+           if(target.compareTo((TheType)i.salary.toString())==0){
+                info=("Name: "+i.name+" "+"Age: "+i.age.toString()+" "
+               +"Salary: "+i.salary.toString()+" "+"Subject: "+i.subject);
+               found=true;
+               outputArea.append(info+"\n");
+           }
+           if(target.compareTo((TheType)i.subject)==0){
+               info=("Name: "+i.name+" "+"Age: "+i.age.toString()+" "
+               +"Salary: "+i.salary.toString()+" "+"Subject: "+i.subject);
+               found=true;
+               outputArea.append(info+"\n");
+           }
+
+       }
+       if(found==false){
+           outputArea.append("Not Found");
+       }
    }
 }
