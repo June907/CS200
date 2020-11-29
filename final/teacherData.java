@@ -24,6 +24,5 @@ public class teacherData{
     public String toString(){
         return name+" "+age+" "+salary+" "+subject;
     }
-     
     
 }
