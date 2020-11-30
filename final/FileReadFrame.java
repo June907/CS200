@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -41,9 +43,16 @@ public class FileReadFrame extends JFrame implements ActionListener {
    ArrayList<studentData> sData=new ArrayList<studentData>();
    ArrayList<teacherData> tData=new ArrayList<teacherData>();
    
+   File applause = new File("applause_y.wav"); //add button
+   File blip = new File("blip.wav"); // clear button
+   File gong = new File("peeeooop_x.wav"); //avage button
+   File boxing = new File("boxing_bell.wav"); // teacher, student, search button
+   
    /* Constructor creates GUI components and adds GUI components
       using a GridBagLayout. */
    FileReadFrame() {
+       
+       
       GridBagConstraints layoutConst = null; // GUI component layout
 
       // Set frame's title
@@ -425,6 +434,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
    public void actionPerformed(ActionEvent event) {
        //student button
        if(event.getSource()==student){
+           playSound(boxing);
            //once student is click by the user, options for the teacher will disappear
           teacher.setVisible(false);
           addTeacher.setVisible(false);
@@ -493,6 +503,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
        
        //teacher button
        if(event.getSource()==teacher){
+           playSound(boxing);
            //once teacher is click by the user, options for the student will disappear
           student.setVisible(false);
           addStudent.setVisible(false);
@@ -559,6 +570,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
        }
        //search button
        if(event.getSource()==search){
+           playSound(boxing);
            outputArea.setText(" ");
            if(stuMode==true){
                
@@ -577,6 +589,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
            // The name of the file to open.
                     String fileName = selectedFileField.getText();    
                     try {
+                        playSound(applause);
                         // Assume default encoding.
                         FileWriter fileWriter =
                             new FileWriter(fileName, true);
@@ -605,6 +618,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
            
         }
         if(event.getSource()==clearStudent){
+            playSound(blip); 
             nameField.setText("");
             ageField.setText("0");
             gpaField.setText("0");
@@ -613,6 +627,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
             SAvgAgeField.setText("0");
         }
         if(event.getSource()==clearTeacher){
+            playSound(blip); 
             tNameField.setText("");
             tAgeField.setText("0");
             tSalaryField.setText("0");
@@ -621,6 +636,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
             tAvgAgeField.setText("0");
         }
         if(event.getSource()==clearMainBox){
+            playSound(blip); 
             outputArea.setText(" ");
         }
        
@@ -629,6 +645,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
            // The name of the file to open.
                     String fileName = selectedFileField.getText();    
                     try {
+                        playSound(applause);
                         // Assume default encoding.
                         FileWriter fileWriter =
                             new FileWriter(fileName, true);
@@ -657,18 +674,39 @@ public class FileReadFrame extends JFrame implements ActionListener {
                     }
        }
        if(event.getSource()==tAvgAge){
+           playSound(gong);
            tAvgAgeField.setText(Integer.toString(teacherAgeAverage(tData)));
         }
         if(event.getSource()==tAvgSalary){
+            playSound(gong);
            tAvgSalaryField.setText(Double.toString(teacherSalAverage(tData)));
         }
         if(event.getSource()==SAvgAge){
+            playSound(gong);
            SAvgAgeField.setText(Integer.toString(studentAgeAverage(sData)));
         }
         if(event.getSource()==SAvgGrade){
+            playSound(gong);
            SAvgGradeField.setText(Integer.toString(studentGradeAverage(sData)));
         }
    }
+   //sound method
+   public static void playSound(File Sound) {
+        
+        try {
+            //creating object
+            Clip minute = AudioSystem.getClip();
+            //read the sound file
+            minute.open(AudioSystem.getAudioInputStream(Sound));
+            minute.start();
+            Thread.sleep(1000);
+            minute.stop();
+        }
+        catch (Exception e ) 
+        {
+            
+        }
+    }
    public static ArrayList<String> CSVtoArrayList(String CSVFileName) {
         
         //TO DO: ensure this arraylist can handle integers, not only strings
