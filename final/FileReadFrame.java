@@ -425,18 +425,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
       layoutConst.gridy = 5;
       layoutConst.insets = new Insets(2,2,2,2);
       add(tSubField, layoutConst);
-      
-      
-   }
-
-   /* Called when openFileButton is pressed. */
-   @Override
-   public void actionPerformed(ActionEvent event) {
-       //student button
-       if(event.getSource()==student){
-           playSound(boxing);
-           //once student is click by the user, options for the teacher will disappear
-          teacher.setVisible(false);
+      //initialize all teacher labels to be invisible for cleanliness
           addTeacher.setVisible(false);
           tNameLabel.setVisible(false);
           tNameField.setVisible(false);
@@ -451,6 +440,46 @@ public class FileReadFrame extends JFrame implements ActionListener {
           tAvgSalaryField.setVisible(false);
           tAvgAge.setVisible(false);
           tAvgAgeField.setVisible(false);
+          //initialize all student labels to be invisible for cleanliness
+          addStudent.setVisible(false);
+          nameLabel.setVisible(false);
+          nameField.setVisible(false);
+          ageLabel.setVisible(false);
+          ageField.setVisible(false);
+          gpaLabel.setVisible(false);
+          gpaField.setVisible(false);
+          gradeLabel.setVisible(false);
+          gradeField.setVisible(false);
+          clearStudent.setVisible(false);
+          SAvgGrade.setVisible(false);
+          SAvgGradeField.setVisible(false);
+          SAvgAge.setVisible(false);
+          SAvgAgeField.setVisible(false);
+      
+   }
+
+   /* Called when openFileButton is pressed. */
+   @Override
+   public void actionPerformed(ActionEvent event) {
+       //student button
+       if(event.getSource()==student){
+           playSound(boxing);
+           //once student is click by the user, students actions and option will appear
+          teacher.setVisible(false);
+          addStudent.setVisible(true);
+          nameLabel.setVisible(true);
+          nameField.setVisible(true);
+          ageLabel.setVisible(true);
+          ageField.setVisible(true);
+          gpaLabel.setVisible(true);
+          gpaField.setVisible(true);
+          gradeLabel.setVisible(true);
+          gradeField.setVisible(true);
+          clearStudent.setVisible(true);
+          SAvgGrade.setVisible(true);
+          SAvgGradeField.setVisible(true);
+          SAvgAge.setVisible(true);
+          SAvgAgeField.setVisible(true);
           
           stuMode=true;
           BufferedReader readBuffer = null; // File input stream
@@ -506,20 +535,20 @@ public class FileReadFrame extends JFrame implements ActionListener {
            playSound(boxing);
            //once teacher is click by the user, options for the student will disappear
           student.setVisible(false);
-          addStudent.setVisible(false);
-          nameLabel.setVisible(false);
-          nameField.setVisible(false);
-          ageLabel.setVisible(false);
-          ageField.setVisible(false);
-          gpaLabel.setVisible(false);
-          gpaField.setVisible(false);
-          gradeLabel.setVisible(false);
-          gradeField.setVisible(false);
-          clearStudent.setVisible(false);
-          SAvgGrade.setVisible(false);
-          SAvgGradeField.setVisible(false);
-          SAvgAge.setVisible(false);
-          SAvgAgeField.setVisible(false);
+          addTeacher.setVisible(true);
+          tNameLabel.setVisible(true);
+          tNameField.setVisible(true);
+          tAgeLabel.setVisible(true);
+          tAgeField.setVisible(true);
+          tSalaryLabel.setVisible(true);
+          tSalaryField.setVisible(true);
+          tSubLabel.setVisible(true);
+          tSubField.setVisible(true);
+          clearTeacher.setVisible(true);
+          tAvgSalary.setVisible(true);
+          tAvgSalaryField.setVisible(true);
+          tAvgAge.setVisible(true);
+          tAvgAgeField.setVisible(true);
           
           
           
