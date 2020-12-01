@@ -31,7 +31,8 @@ public class FileReadFrame extends JFrame implements ActionListener {
    private JLabel tNameLabel, tAgeLabel, tSalaryLabel, tSubLabel; //teacher label
    private JTextField selectedFileField; // Holds name of file
    private JFileChooser fileChooser;     // Enables user to select file
-   private JButton search;       
+   private JButton search; 
+   private JButton reset;
    private JButton student, SAvgAge, SAvgGrade, studentSDAge, StudentSDGrade;
    private JButton teacher, tAvgAge, tAvgSalary, tSDSalary, tSDAge;
    private JComboBox sortStudent, sortTea;
@@ -176,6 +177,8 @@ public class FileReadFrame extends JFrame implements ActionListener {
       teacher.addActionListener(this);
       search=new JButton("search");
       search.addActionListener(this);  
+      reset=new JButton("Reset");
+      reset.addActionListener(this);
       target=new JTextField(15);
       target.setEditable(true);
       target.setText(" ");
@@ -272,7 +275,7 @@ public class FileReadFrame extends JFrame implements ActionListener {
       layoutConst = new GridBagConstraints();
       layoutConst.insets = new Insets(1, 10, 10, 10);
       layoutConst.fill = GridBagConstraints.LINE_END;
-      layoutConst.gridx = 0;
+      layoutConst.gridx = 1;
       layoutConst.gridy = 10;
       layoutConst.gridheight = 2;
       layoutConst.gridwidth = 5;
@@ -284,6 +287,12 @@ public class FileReadFrame extends JFrame implements ActionListener {
       layoutConst.gridx = 0;
       layoutConst.gridy = 11;
       add(clearMainBox, layoutConst);
+      //reset Button
+      layoutConst = new GridBagConstraints();
+      layoutConst.insets = new Insets(10, 10, 5, 5);
+      layoutConst.gridx = 1;
+      layoutConst.gridy = 11;
+      add(reset, layoutConst);
       
       //add student button
       layoutConst = new GridBagConstraints();
@@ -852,6 +861,10 @@ public class FileReadFrame extends JFrame implements ActionListener {
         if(event.getSource()==StudentSDGrade){
             playSound(gong);
            stuSDGradeField.setText(stuSDGrade(sData));
+        }
+        if(event.getSource()==reset){
+            playSound(blip);
+           
         }
         
    }
