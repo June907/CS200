@@ -31,20 +31,12 @@ public class FileReadFrame extends JFrame implements ActionListener {
    private JLabel tNameLabel, tAgeLabel, tSalaryLabel, tSubLabel; //teacher label
    private JTextField selectedFileField; // Holds name of file
    private JFileChooser fileChooser;     // Enables user to select file
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
    private JButton search;       
    private JButton student, SAvgAge, SAvgGrade, studentSDAge, StudentSDGrade;
    private JButton teacher, tAvgAge, tAvgSalary, tSDSalary, tSDAge;
-=======
->>>>>>> Stashed changes
    private JComboBox sortStudent, sortTea;
    private JLabel s1,s2;
-   private JButton search, sortButton;       
-   private JButton student, SAvgAge, SAvgGrade;
-   private JButton teacher, tAvgAge, tAvgSalary;
->>>>>>> 55667929ab8d82594c72eb2698e2e12214a7e4be
+   private JButton sortButton;
    private JButton addStudent, addTeacher, clearStudent, clearTeacher, clearMainBox;
    private JTextField target;
    private JTextField nameField, ageField, gpaField, gradeField, SAvgAgeField, SAvgGradeField, stuSDGradeField, stuSDAgeField; //student text field
