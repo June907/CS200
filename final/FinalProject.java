@@ -14,10 +14,12 @@ public class FinalProject
     public static void main(String[] args) {
       // Creates FileReadFrame and its components
       FileReadFrame myFrame = new FileReadFrame();
-      myFrame.setSize(400,250);
+
+      myFrame.setSize(800,800);
+      
       myFrame.setLocationRelativeTo(null);
       myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      myFrame.pack();
+      
       myFrame.setVisible(true);
    }
 

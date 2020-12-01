@@ -31,7 +31,9 @@ public class FileReadFrame extends JFrame implements ActionListener {
    private JLabel tNameLabel, tAgeLabel, tSalaryLabel, tSubLabel; //teacher label
    private JTextField selectedFileField; // Holds name of file
    private JFileChooser fileChooser;     // Enables user to select file
-   private JButton search;       
+   private JComboBox sortStudent, sortTea;
+   private JLabel s1,s2;
+   private JButton search, sortButton;       
    private JButton student, SAvgAge, SAvgGrade;
    private JButton teacher, tAvgAge, tAvgSalary;
    private JButton addStudent, addTeacher, clearStudent, clearTeacher, clearMainBox;
@@ -60,6 +62,13 @@ public class FileReadFrame extends JFrame implements ActionListener {
 
       outputLabel = new JLabel("File contents:");
       selectedFileLabel = new JLabel("Selected file:");
+      //sorting
+      String s1[]={"Name","Age","GPA","Grade"};
+      String s2[]={"Name","Age","GPA","Grade"};
+      sortStudent=new JComboBox(s1);
+      sortTea=new JComboBox(s2);
+      
+      sortButton=new JButton("Sort");
       //Student labels
       nameLabel = new JLabel("Name: ");
       ageLabel = new JLabel("Age: ");
@@ -463,8 +472,9 @@ public class FileReadFrame extends JFrame implements ActionListener {
    public void actionPerformed(ActionEvent event) {
        //student button
        if(event.getSource()==student){
-           playSound(boxing);
-           //once student is click by the user, students actions and option will appear
+          playSound(boxing);
+          Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+          setBounds(0,0,screenSize.width, screenSize.height);
           teacher.setVisible(false);
           addStudent.setVisible(true);
           nameLabel.setVisible(true);
@@ -532,8 +542,10 @@ public class FileReadFrame extends JFrame implements ActionListener {
        
        //teacher button
        if(event.getSource()==teacher){
-           playSound(boxing);
+          playSound(boxing);
            //once teacher is click by the user, options for the student will disappear
+          Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+          setBounds(0,0,screenSize.width, screenSize.height);
           student.setVisible(false);
           addTeacher.setVisible(true);
           tNameLabel.setVisible(true);
