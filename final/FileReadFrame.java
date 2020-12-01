@@ -31,19 +31,29 @@ public class FileReadFrame extends JFrame implements ActionListener {
    private JLabel tNameLabel, tAgeLabel, tSalaryLabel, tSubLabel; //teacher label
    private JTextField selectedFileField; // Holds name of file
    private JFileChooser fileChooser;     // Enables user to select file
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+   private JButton search;       
+   private JButton student, SAvgAge, SAvgGrade, studentSDAge, StudentSDGrade;
+   private JButton teacher, tAvgAge, tAvgSalary, tSDSalary, tSDAge;
+=======
+>>>>>>> Stashed changes
    private JComboBox sortStudent, sortTea;
    private JLabel s1,s2;
    private JButton search, sortButton;       
    private JButton student, SAvgAge, SAvgGrade;
    private JButton teacher, tAvgAge, tAvgSalary;
+>>>>>>> 55667929ab8d82594c72eb2698e2e12214a7e4be
    private JButton addStudent, addTeacher, clearStudent, clearTeacher, clearMainBox;
    private JTextField target;
-   private JTextField nameField, ageField, gpaField, gradeField, SAvgAgeField, SAvgGradeField; //student text field
-   private JTextField tNameField, tAgeField, tSalaryField, tSubField, tAvgAgeField, tAvgSalaryField; //teacher text field
+   private JTextField nameField, ageField, gpaField, gradeField, SAvgAgeField, SAvgGradeField, stuSDGradeField, stuSDAgeField; //student text field
+   private JTextField tNameField, tAgeField, tSalaryField, tSubField, tAvgAgeField, tAvgSalaryField, tSDAgeField, tSDSalaryField; //teacher text field
    private boolean stuMode=false;
    private boolean teaMode=false;
    ArrayList<studentData> sData=new ArrayList<studentData>();
    ArrayList<teacherData> tData=new ArrayList<teacherData>();
+   
    
    File applause = new File("applause_y.wav"); //add button
    File blip = new File("blip.wav"); // clear button
@@ -93,6 +103,16 @@ public class FileReadFrame extends JFrame implements ActionListener {
       tAvgSalaryField.setEditable(false);
       tAvgSalaryField.setText("0");
       
+      //teacher standard Diviation salary text box
+      tSDSalaryField = new JTextField(20);
+      tSDSalaryField.setEditable(false);
+      tSDSalaryField.setText("0");
+      
+      //teacher standard Diviation age text box
+      tSDAgeField = new JTextField(20);
+      tSDAgeField.setEditable(false);
+      tSDAgeField.setText("0");
+      
       //student average age text box
       SAvgAgeField = new JTextField(15);
       SAvgAgeField.setEditable(false);
@@ -102,6 +122,16 @@ public class FileReadFrame extends JFrame implements ActionListener {
       SAvgGradeField = new JTextField(10);
       SAvgGradeField.setEditable(false);
       SAvgGradeField.setText("0");
+      
+      //student SD grade text box
+      stuSDGradeField = new JTextField(10);
+      stuSDGradeField.setEditable(false);
+      stuSDGradeField.setText("0");
+      
+      //student SD age text box
+      stuSDAgeField = new JTextField(10);
+      stuSDAgeField.setEditable(false);
+      stuSDAgeField.setText("0");
       
       //student text
       nameField = new JTextField(20);
@@ -171,6 +201,17 @@ public class FileReadFrame extends JFrame implements ActionListener {
       SAvgAge.addActionListener(this);
       SAvgGrade = new JButton("Student Avg. Grade"); // student average grade button
       SAvgGrade.addActionListener(this);
+      //SD button 
+      tSDAge = new JButton("Teacher Standard Dev. Age"); // teacher SD age button
+      tSDAge.addActionListener(this);
+      tSDSalary = new JButton("Teacher Standard Dev. Salary"); // teacher SD salary button
+      tSDSalary.addActionListener(this);
+      studentSDAge = new JButton("Student Standard Dev. Age"); // student SD age button
+      studentSDAge.addActionListener(this);
+      StudentSDGrade = new JButton("Student Standard Dev. Grade"); // student SD grade button
+      StudentSDGrade.addActionListener(this);
+      
+      
       
       clearStudent = new JButton("Clear"); //clear button
       clearTeacher = new JButton("Clear");
@@ -307,6 +348,32 @@ public class FileReadFrame extends JFrame implements ActionListener {
       layoutConst.gridx = 5;
       layoutConst.gridy = 7;
       add(tAvgSalaryField, layoutConst);
+      //teacher standard deviation location
+      layoutConst = new GridBagConstraints();
+      layoutConst.insets = new Insets(10, 10, 5, 5);
+      layoutConst.fill = GridBagConstraints.HORIZONTAL;
+      layoutConst.gridx = 4;
+      layoutConst.gridy = 8;
+      add(tSDAge, layoutConst);
+      
+      layoutConst = new GridBagConstraints();
+      layoutConst.gridx = 5;
+      layoutConst.gridy = 8;
+      layoutConst.insets = new Insets(2,2,2,2);
+      add(tSDAgeField, layoutConst);
+      
+      layoutConst = new GridBagConstraints();
+      layoutConst.insets = new Insets(10, 10, 5, 5);
+      layoutConst.fill = GridBagConstraints.HORIZONTAL;
+      layoutConst.gridx = 4;
+      layoutConst.gridy = 9;
+      add(tSDSalary, layoutConst);
+      
+      layoutConst = new GridBagConstraints();
+      layoutConst.insets = new Insets(10, 10, 5, 5);
+      layoutConst.gridx = 5;
+      layoutConst.gridy = 9;
+      add(tSDSalaryField, layoutConst);
       
       //student average age/grade text/button
       layoutConst = new GridBagConstraints();
@@ -334,6 +401,33 @@ public class FileReadFrame extends JFrame implements ActionListener {
       layoutConst.gridx = 5;
       layoutConst.gridy = 9;
       add(SAvgGradeField, layoutConst);
+      
+      //student SD locations
+      layoutConst = new GridBagConstraints();
+      layoutConst.insets = new Insets(10, 10, 5, 5);
+      layoutConst.fill = GridBagConstraints.HORIZONTAL;
+      layoutConst.gridx = 4;
+      layoutConst.gridy = 10;
+      add(studentSDAge, layoutConst);
+      
+      layoutConst = new GridBagConstraints();
+      layoutConst.gridx = 5;
+      layoutConst.gridy = 10;
+      layoutConst.insets = new Insets(2,2,2,2);
+      add(stuSDAgeField, layoutConst);
+      
+      layoutConst = new GridBagConstraints();
+      layoutConst.insets = new Insets(10, 10, 5, 5);
+      layoutConst.fill = GridBagConstraints.HORIZONTAL;
+      layoutConst.gridx = 4;
+      layoutConst.gridy = 11;
+      add(StudentSDGrade, layoutConst);
+      
+      layoutConst = new GridBagConstraints();
+      layoutConst.insets = new Insets(10, 10, 5, 5);
+      layoutConst.gridx = 5;
+      layoutConst.gridy = 11;
+      add(stuSDGradeField, layoutConst);
       
       /////Student 
       layoutConst = new GridBagConstraints();
@@ -449,6 +543,10 @@ public class FileReadFrame extends JFrame implements ActionListener {
           tAvgSalaryField.setVisible(false);
           tAvgAge.setVisible(false);
           tAvgAgeField.setVisible(false);
+          tSDSalary.setVisible(false);
+          tSDSalaryField.setVisible(false);
+          tSDAge.setVisible(false);
+          tSDAgeField.setVisible(false);
           //initialize all student labels to be invisible for cleanliness
           addStudent.setVisible(false);
           nameLabel.setVisible(false);
@@ -464,6 +562,11 @@ public class FileReadFrame extends JFrame implements ActionListener {
           SAvgGradeField.setVisible(false);
           SAvgAge.setVisible(false);
           SAvgAgeField.setVisible(false);
+          StudentSDGrade.setVisible(false);
+          stuSDGradeField.setVisible(false);
+          studentSDAge.setVisible(false);
+          stuSDAgeField.setVisible(false);
+          
       
    }
 
@@ -490,6 +593,10 @@ public class FileReadFrame extends JFrame implements ActionListener {
           SAvgGradeField.setVisible(true);
           SAvgAge.setVisible(true);
           SAvgAgeField.setVisible(true);
+          StudentSDGrade.setVisible(true);
+          stuSDGradeField.setVisible(true);
+          studentSDAge.setVisible(true);
+          stuSDAgeField.setVisible(true);
           
           stuMode=true;
           BufferedReader readBuffer = null; // File input stream
@@ -561,6 +668,10 @@ public class FileReadFrame extends JFrame implements ActionListener {
           tAvgSalaryField.setVisible(true);
           tAvgAge.setVisible(true);
           tAvgAgeField.setVisible(true);
+          tSDSalary.setVisible(true);
+          tSDSalaryField.setVisible(true);
+          tSDAge.setVisible(true);
+          tSDAgeField.setVisible(true);
           
           
           
@@ -666,6 +777,8 @@ public class FileReadFrame extends JFrame implements ActionListener {
             gradeField.setText("0");
             SAvgGradeField.setText("0");
             SAvgAgeField.setText("0");
+            stuSDGradeField.setText("0");
+            stuSDAgeField.setText("0");
         }
         if(event.getSource()==clearTeacher){
             playSound(blip); 
@@ -675,6 +788,8 @@ public class FileReadFrame extends JFrame implements ActionListener {
             tSubField.setText(" ");
             tAvgSalaryField.setText("0");
             tAvgAgeField.setText("0");
+            tSDSalaryField.setText("0");
+            tSDAgeField.setText("0");
         }
         if(event.getSource()==clearMainBox){
             playSound(blip); 
@@ -722,6 +837,14 @@ public class FileReadFrame extends JFrame implements ActionListener {
             playSound(gong);
            tAvgSalaryField.setText(Double.toString(teacherSalAverage(tData)));
         }
+        if(event.getSource()==tSDAge){
+           playSound(gong);
+           tSDAgeField.setText(teachSDAge(tData));
+        }
+        if(event.getSource()==tSDSalary){
+            playSound(gong);
+           tSDSalaryField.setText(teachSDSalary(tData));
+        }
         if(event.getSource()==SAvgAge){
             playSound(gong);
            SAvgAgeField.setText(Integer.toString(studentAgeAverage(sData)));
@@ -730,6 +853,15 @@ public class FileReadFrame extends JFrame implements ActionListener {
             playSound(gong);
            SAvgGradeField.setText(Integer.toString(studentGradeAverage(sData)));
         }
+        if(event.getSource()==studentSDAge){
+            playSound(gong);
+           stuSDAgeField.setText(stuSDAge(sData));
+        }
+        if(event.getSource()==StudentSDGrade){
+            playSound(gong);
+           stuSDGradeField.setText(stuSDGrade(sData));
+        }
+        
    }
    //sound method
    public static void playSound(File Sound) {
@@ -848,6 +980,60 @@ public class FileReadFrame extends JFrame implements ActionListener {
         }
         average = grade/count;
         return average;
+    }
+    public String stuSDGrade(ArrayList<studentData> data)
+    {
+        int mean = studentGradeAverage(sData);
+        double SD = 0;
+        int count = 0;
+        for (studentData i: data){
+            count ++;
+        }
+        for(studentData i: data) {
+            SD += Math.pow(i.grade - mean, 2);
+        }
+
+        return String.format("%.2f", Math.sqrt(SD/count));
+    }
+    public String stuSDAge(ArrayList<studentData> data){
+        int mean = studentAgeAverage(sData);
+        double SD = 0;
+        int count = 0;
+        for (studentData i: data){
+            count ++;
+        }
+        for(studentData i: data) {
+            SD += Math.pow(i.age - mean, 2);
+        }
+
+        return String.format("%.2f", Math.sqrt(SD/count));
+    }
+    public String teachSDAge(ArrayList<teacherData> data)
+    {
+        int mean = teacherAgeAverage(tData);
+        double SD = 0;
+        int count = 0;
+        for (teacherData i: data){
+            count ++;
+        }
+        for(teacherData i: data) {
+            SD += Math.pow(i.age - mean, 2);
+        }
+
+        return String.format("%.2f", Math.sqrt(SD/count));
+    }
+    public String teachSDSalary(ArrayList<teacherData> data){
+        double mean = teacherSalAverage(tData);
+        double SD = 0;
+        int count = 0;
+        for (teacherData i: data){
+            count ++;
+        }
+        for(teacherData i: data) {
+            SD += Math.pow(i.salary - mean, 2);
+        }
+
+        return String.format("%.2f", Math.sqrt(SD/count));
     }
    public <TheType extends Comparable<TheType>> void teacherSearching(ArrayList<teacherData> data
    , TheType target){
