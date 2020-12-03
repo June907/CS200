@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=SortTName
+comment1.params=a\ b
+comment1.target=int\ compare(teacherData,\ teacherData)
+comment2.params=a\ b
+comment2.target=int\ reversed(teacherData,\ teacherData)
+numComments=3
